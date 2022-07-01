@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{
+            border:3px solid black;
+            padding:10px;
+            text-align: center;
+        }
+    </style>
+    
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+</head>
+<body>
+    <!-- <%- include("./partial/header")%> -->
+   <a href="/login">login</a>
+   <a href="/register">register</a>
+    <h1>welcome ejs</h1>
+    <h1>this is home page</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Age</th>
+        </tr>
+        <%if(typeof testData != 'undefined'){%>
+            <%for(let i=0;i<10;i++){%>
+            <tr>
+                <td><%= testData.name %></td>
+            </tr>
+            <%}%>
+        <% } %>
+    </table>
+    
+
+    
+    
+    
+  
+</body>
+</html>
