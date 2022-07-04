@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const registersSchema = new mongoose.Schema({
+let mongoose = require('mongoose');
+module.exports = new mongoose.model('pending',{
     name:{
         type:String,
        // required:true
@@ -34,6 +34,4 @@ const registersSchema = new mongoose.Schema({
         //required:true,
 
     }
-});
-module.exports = mongoose.model("registers", registersSchema)
- 
+})
