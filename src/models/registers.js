@@ -14,6 +14,9 @@ const registersSchema = new mongoose.Schema({
     gender:{
        // type:String
     },
+    department:{
+        
+    },
     phone:{
         type:Number,
        // required:true,
@@ -33,7 +36,8 @@ const registersSchema = new mongoose.Schema({
         type:Number,
         //required:true,
 
-    }
+    },
+    doctor:String
 });
 module.exports = mongoose.model("registers", registersSchema)
  

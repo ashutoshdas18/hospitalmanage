@@ -19,6 +19,9 @@ module.exports = new mongoose.model('pending',{
        // required:true,
         
     },
+    department:{ },
+
+       
     age:{
         type:Number,
        // required:true,
