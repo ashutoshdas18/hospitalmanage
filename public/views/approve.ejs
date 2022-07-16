@@ -21,8 +21,8 @@
         <select name="doctors">
 
         
- <% for(var i=0;i<doctorData.name.length; i++){%>
-    <option value="<%= doctorData.name[i]%>">  <%= doctorData.name[i]%></option>
+ <% for(var i=0;i<doctorData.length; i++){%>
+    <option value="<%= doctorData[i].name %>">  <%= doctorData[i].name%></option>
     <%}%>
 </select>
 <input type="submit" value="Insert"/>

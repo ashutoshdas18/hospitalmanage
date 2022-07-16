@@ -107,7 +107,7 @@ app.post("/adminlog", (req, res) => {
 
 app.get('/adminlog/request',async(req,res)=>{
     let abc = await pendingModel.find();
-    console.log(abc);
+   // console.log(abc);
     // res.render('request',{abc:abc})
      res.render('request',{abc:abc}); 
 })
@@ -118,9 +118,10 @@ app.get('/adminlog/request',async(req,res)=>{
 app.post('/registers',async(req,res)=>{
     let pendingData = await pendingModel.findOne({_id:req.body.pendingId});  
      let ldept = pendingData.department;
-     let doctorData = await doctorsModel.findOne({depaertment:ldept});
+     console.log("dept is :"+ldept);
+     let doctorData = await doctorsModel.find({"department":ldept});
      console.log( doctorData);
-    res.render("approve",{pendingData,doctorData});
+   res.render("approve",{pendingData,doctorData});
    
 })
 /*original data*/
@@ -128,6 +129,7 @@ app.post('/registerpatient/patient',async(req,res)=>{
     let patientId = req.query.id;
     let pendingData = await pendingModel.findOne({_id:patientId}); 
     pendingData = {
+        
         name : pendingData.name,
         email : pendingData.email,
         gender : pendingData.gender,
@@ -159,6 +161,50 @@ app.get("/adminlog/vp",async(req,res)=>{
  
 })
 
-app.listen(3000, () => {
-    console.log("server started on port 3000");
+/*doctor page*/
+app.get("/doclog",(req,res)=>{
+    res.render("doclog");
+})
+app.post("/doclog",async (req,res)=>{
+    let name = req.body.dname;
+    let password = req.body.dpass;
+    let data = await registermodel.find({doctor:name});
+   
+    if( data != null)
+    {
+       if(password === "123"){
+           
+           res.render("showlist",{data:data});
+       }
+       else{
+        res.send("password not matched");
+       }
+    }
+    else{
+        res.send("username not matched");
+    }
+    
+
+
+    
+   
+   
+
+})
+app.post("/doclog/:prescribe",async (req,res)=>{
+   
+   let pdata = await registermodel.findOne({_id:req.query.id})
+
+    res.render("prescribe",{pdata:pdata});
+});
+
+app.post("/update",async(req,res)=>{
+    let abc = await registermodel.findOne({_id:req.body.presdata});
+    console.log(req.body);
+    res.send(abc);
+   
+})
+
+app.listen(6001, () => {
+    console.log("server started on port 6001");
 });
