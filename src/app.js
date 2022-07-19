@@ -250,6 +250,6 @@ app.post('/doclogout',(req,res)=>{
     res.redirect('/doclog');
 })
 
-app.listen(6001, () => {
-    console.log("server started on port 6001");
+app.listen(3000, () => {
+    console.log("server started on port 3000");
 });
