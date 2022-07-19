@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,125 +9,127 @@
     <style>
         *{
             padding:0;
-            margin:0;
-        }
-        h1{
-            text-align: center;
-            font-size: 2.3rem;
-        }
-        section{
-            background-color:aqua;
+            margin:0;    
+        } 
+        #register{
+            width:100vw;
             height:100vh;
-
+           
+            
         }
-        .form{
-
-            display:flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 7.5%;
+        #register:before{
+            content:"";
+            position:absolute;
+            height: 100%;
+           
+            width:100%;
+            background:url("../images/rain.jpg") no-repeat center center/cover;
+            z-index: -1;
+        }
+        .mainregister{
+            
+            width:400px;
+            height:600px;
+           
+            border:2px solid red;
+           
+        }
+        .mainregister input{
           
         }
-        .form form input{
-            width:80%;
-            padding:6px;
-            border-radius: 5px;
-            margin:5px;
-            border:2px solid red;
-           
+        .mainregister form{
+            width:300px;
+            
+            border:2px solid rgb(9, 255, 0);
+            
+            
+
         }
-        .form form {
-            width:400px;
-           
-        }
-        .btnsubmit{
-            background-color: brown;
-            color:white;
-            border-radius: 5px;
-            padding:2px 6px;
-            font-size: 15px;
-            border:2px solid black;
-        }
-        #span{
-            display:flex;
-            width:330px;
-            border:2px solid red;
-            background-color: aliceblue;
-            padding:3px;
-        }
+
        
 
+        
+
+
+      
+       
     </style>
 </head>
-<body>
-    
-    <section id="register">
-        <h1 class="center">Employee Registration form</h1>
-       <div class="form">
-        <form action="/register" method="post">
-           <div class="items">
-            <label for="name">name</label><br>
-            <input type="name"name="inputname" placeholder="enter your name">
-           </div>
 
-           <div class="items">
-            <label for="age">age</label><br>
-            <input type="age"name="inputage" placeholder="enter yourage">
-           </div>
-          
-           <div class="items">
-            <label for="email">Email</label><br>
-            <input type="email" name="inputemail" placeholder="enter your email">
-           </div>
-           <div class="items">
-            <label for="phone">Phone</label><br>
-            <input type="number" name="inputphone" placeholder="enter your number">
-           </div>
-           <div>
-            <label for="Dept:">Department</label>
-            <select name="dept" id="sldept">
-                <option name="dept"  value="xray">xray</option>
-                <option  name="dept" value="cardiology">cardiology</option>
-                <option name="dept"  value="medicine">medicine</option>
-            </select>
-            </div>
-            <!-- <div >
+<body>
+
+    <section id="register">
+   
+
+        <div class="mainregister">
+
+            <form action="/register" method="post">
+           
+                
+                <div class="items">
+                    <label for="name">name</label><br>
+                    <input type="name" name="inputname" placeholder="enter your name">
+                </div>
+
+                <div class="items">
+                    <label for="age">age</label><br>
+                    <input type="age" name="inputage" placeholder="enter yourage">
+                </div>
+
+                <div class="items">
+                    <label for="email">Email</label><br>
+                    <input type="email" name="inputemail" placeholder="enter your email">
+                </div>
+                <div class="items">
+                    <label for="phone">Phone</label><br>
+                    <input type="number" name="inputphone" placeholder="enter your number">
+                </div>
+                <div>
+                    <label for="Dept:">Department</label>
+                    <select name="dept" id="sldept">
+                        <option name="dept" value="xray">xray</option>
+                        <option name="dept" value="cardiology">cardiology</option>
+                        <option name="dept" value="medicine">medicine</option>
+                    </select>
+                </div>
+                <!-- <div >
                 <label for="dept">department :</label>
                 <input type="radio" name="dept" value="xray">xray
                 <input type="radio" name="dept" value="cardiology">cardiology
                 <input type="radio" name="dept" value="medicine">medicine
 
             </div> -->
-         
-           <div class="items">
-            <label for="password">password</label><br>
-            <input type="password" name="inputpassword"placeholder="enter your password">
-           </div>
-           <div class="items">
-            <label for="password">confirm password</label><br>
-            <input type="password" name="inputcnfpassword"placeholder="confirm password">
-           </div>
 
-          <!-- <div class="items">
+                <div class="items">
+                    <label for="password">password</label><br>
+                    <input type="password" name="inputpassword" placeholder="enter your password">
+                </div>
+                <div class="items">
+                    <label for="password">confirm password</label><br>
+                    <input type="password" name="inputcnfpassword" placeholder="confirm password">
+                </div>
+
+                <!-- <div class="items">
            <select name="gender">
             <option value="m">male</option>
             <option value="f">female</option>
            </select>
            </div>  -->
-           <label for="">gender:</label><br>
-           <div class="items" id="span">
-            <input type="radio" name="gender" value="m">male
-            <input type="radio" name="gender" value="f">female
-           </div>
+                <label for="">gender:</label><br>
+                <div class="items" id="span">
+                    <input type="radio" name="gender" value="m">male
+                    <input type="radio" name="gender" value="f">female
+                </div>
 
 
-          <input type="submit" class="btnsubmit" value="register">
+                <input type="submit" class="btnsubmit" value="register">
 
-        </form>
-       </div>
+            </form>
+        </div>
 
     </section>
 
-    
+
 </body>
+
 </html>

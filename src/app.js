@@ -14,6 +14,8 @@ const app = express();
 const registermodel = require("./models/registers");
 const pendingModel = require("./models/pending");
 const doctorsModel = require("./models/doctors");
+const finalsModel = require("./models/finals");
+let isLoggedIn=false;
 
 
 app.use(express.static(static_path));
@@ -87,6 +89,7 @@ app.post("/login", async (req, res) => {
     console.log("database password :" + data.password);
     if (data.password === parseInt(lpassword)) {
         console.log("sucess");
+        
     }
     else {
 
@@ -162,8 +165,24 @@ app.get("/adminlog/vp",async(req,res)=>{
 })
 
 /*doctor page*/
-app.get("/doclog",(req,res)=>{
-    res.render("doclog");
+app.get("/doclog",async(req,res)=>{
+     if(req.headers.cookie)
+     {
+        if(req.headers.cookie.split('doc=')){
+            let name = req.headers.cookie.split('doc=')[1]
+            let data = await registermodel.find({doctor:name});
+            res.render("showlist",{data:data});
+        }
+        else{
+            res.render('doclog')
+        }
+        
+     }
+    else{
+        res.render('doclog')
+    }
+    
+
 })
 app.post("/doclog",async (req,res)=>{
     let name = req.body.dname;
@@ -173,7 +192,7 @@ app.post("/doclog",async (req,res)=>{
     if( data != null)
     {
        if(password === "123"){
-           
+           res.cookie('doc',req.body.dname) 
            res.render("showlist",{data:data});
        }
        else{
@@ -196,13 +215,39 @@ app.post("/doclog/:prescribe",async (req,res)=>{
    let pdata = await registermodel.findOne({_id:req.query.id})
 
     res.render("prescribe",{pdata:pdata});
+   
 });
 
 app.post("/update",async(req,res)=>{
-    let abc = await registermodel.findOne({_id:req.body.presdata});
-    console.log(req.body);
-    res.send(abc);
+    let finalData = await registermodel.findOne({_id:req.body.presdata});
+    
+    finalData = {
+        
+        name : finalData.name,
+        email : finalData.email,
+        gender : finalData.gender,
+        phone : finalData.phone,
+        age : finalData.age,
+        password : finalData.password,
+        department : finalData.department,
+        doctor : finalData.doctor,
+        medicine:req.body.medicine
+    }
+    
+    let newData =  new finalsModel(finalData);
+      await newData.save();
+     let abc = await registermodel.deleteOne({_id:req.body.presdata});
+     res.redirect('/doclog')
+     
+    
    
+    
+   
+})
+
+app.post('/doclogout',(req,res)=>{
+    res.clearCookie('doc');
+    res.redirect('/doclog');
 })
 
 app.listen(6001, () => {
