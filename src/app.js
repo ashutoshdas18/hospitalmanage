@@ -15,6 +15,7 @@ const registermodel = require("./models/registers");
 const pendingModel = require("./models/pending");
 const doctorsModel = require("./models/doctors");
 const finalsModel = require("./models/finals");
+const serversModel = require("./models/servers");
 let isLoggedIn=false;
 
 
@@ -156,28 +157,24 @@ app.post('/delete',async (req,res)=>{
 
 /*for admin viewpatient section*/
 app.get("/adminlog/vp",async(req,res)=>{
-    let data = await registermodel.find() ;
-    // res.send(data);
--
-    res.render("viewpatient",{data:data});
-    
- 
+    let data = await finalsModel.find() ;
+    res.render("viewpatient",{data:data}); 
+})
+app.post("/adminlog/vp",async(req,res)=>{
+    await finalsModel.deleteOne({_id:req.body.dischargedata});
+    res.redirect('/adminlog/vp');
+
+
 })
 
 /*doctor page*/
 app.get("/doclog",async(req,res)=>{
-     if(req.headers.cookie)
-     {
-        if(req.headers.cookie.split('doc=')){
-            let name = req.headers.cookie.split('doc=')[1]
-            let data = await registermodel.find({doctor:name});
-            res.render("showlist",{data:data});
-        }
-        else{
-            res.render('doclog')
-        }
-        
-     }
+    if(req.headers.cookie.includes('doc'))
+    {
+       let name = req.headers.cookie.split('doc=')[1]
+       let data = await registermodel.find({doctor:name});
+       res.render("showlist",{data:data});  
+    }
     else{
         res.render('doclog')
     }
@@ -235,7 +232,11 @@ app.post("/update",async(req,res)=>{
     }
     
     let newData =  new finalsModel(finalData);
-      await newData.save();
+    await newData.save();
+    let serverData =  new serversModel(finalData);
+      await serverData.save();
+    
+
      let abc = await registermodel.deleteOne({_id:req.body.presdata});
      res.redirect('/doclog')
      
@@ -250,6 +251,6 @@ app.post('/doclogout',(req,res)=>{
     res.redirect('/doclog');
 })
 
-app.listen(3000, () => {
-    console.log("server started on port 3000");
+app.listen(6001, () => {
+    console.log("server started on port 6000");
 });
